@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study | Autonomous Laser Turret</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; }
+        .btn { background-color: #238636; color: white; padding: 8px 16px; border-radius: 6px; font-weight: 500; font-size: 14px; text-decoration: none; display: inline-block; }
+        .btn:hover { background-color: #2ea043; }
+        h1, h2, h3 { color: #ffffff; }
+        .content-box p { margin-bottom: 1rem; line-height: 1.6; color: #c9d1d9; }
+        .content-box ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #c9d1d9; }
+        .content-box li { margin-bottom: 0.5rem; }
+        .content-box strong { color: #58a6ff; }
+        .formula-box { background-color: #0d1117; border-left: 3px solid #238636; padding: 14px; margin: 16px 0; font-family: monospace; }
+    </style>
+</head>
+<body class="antialiased max-w-3xl mx-auto p-6">
+    
+    <div class="mb-6 mt-4">
+        <a href="index.html" class="text-blue-400 hover:underline">← Back to Portfolio</a>
+    </div>
+
+    <div class="card p-8 content-box">
+        <h1 class="text-3xl font-bold mb-6 border-b border-gray-700 pb-4">Vision-Based Autonomous Laser Tracking & Pan-Tilt Targeting System</h1>
+        
+        <h3 class="text-xl font-semibold mb-3 mt-6">Executive Summary</h3>
+        <p>Bu proje; bilgisayarlı görü (Computer Vision), analitik ters kinematik modelleme ve gömülü donanım kontrolünü entegre eden otonom bir 2-eksenli (Pan-Tilt) elektro-optik hedefleme sistemidir. C# Windows Forms ve Emgu CV (OpenCV) altyapısıyla geliştirilen masaüstü yazılımı, kamera akışındaki hedefleri gerçek zamanlı segmente eder, ağırlık merkezini çıkarır, metrik koordinatları servo motor açılarına dönüştürür ve UART protokolü üzerinden Arduino Uno kontrolündeki lazer taretine fiziksel kilitlenme sağlar.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Hardware & System Overview</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+            <div class="border border-gray-700 rounded p-2 bg-gray-900 flex flex-col justify-between">
+                <img src="lazer-hardware.png" alt="Physical Setup - 2-DOF Pan-Tilt Laser Turret and Arduino Uno" class="rounded w-full h-auto object-cover border border-gray-800">
+                <p class="text-xs text-gray-400 mt-2 text-center">Fiziksel 2-DOF Pan-Tilt Lazer Tareti ve Arduino Uno Donanım Mimarisi</p>
+            </div>
+            <div class="border border-gray-700 rounded p-2 bg-gray-900 flex flex-col justify-between">
+                <img src="lazer-gui.png" alt="C# Emgu CV Operator Interface and Real-Time Kinematics" class="rounded w-full h-auto object-cover border border-gray-800">
+                <p class="text-xs text-gray-400 mt-2 text-center">C# Emgu CV Operatör Arayüzü, Görüntü Kanalları ve Açı Hesaplama Paneli</p>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">The Challenge</h3>
+        <p>Görüntü tabanlı robotik yönlendirme sistemlerindeki temel zorluk, 2 boyutlu piksel düzlemi ile robotun 3 boyutlu fiziksel çalışma uzayı arasındaki uzamsal dönüşümün milisaniyeler içinde hatasız tamamlanmasıdır. Ortam parazitlerine karşı gürültü filtreleme, kameranın optik merkezine göre ofset telafisi ve mekanik servoların açısal sınırlarına uygun analitik kinematik hesaplamaların gecikmesiz çalışması gerekmektedir.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Methodology & System Architecture</h3>
+        <p>Sistem, Görüntü İşleme Hattı, Kinematik Motor ve Gömülü İletişim Protokolü olmak üzere üç ana katmandan oluşmaktadır:</p>
+        <ul>
+            <li><strong>Görüntü İşleme Hattı (Emgu CV & Custom Erosion):</strong> Kamera akışından alınan kareler gri seviyeye (Grayscale) dönüştürülür. Eşikleme kaydırma çubuğu üzerinden dinamik ters ikili maskeleme (ThresholdBinaryInv) uygulanır. Parazit pikselleri temizlemek amacıyla komşuluk matrislerini doğrudan tarayan özel bir morfolojik aşındırma (Corrosion) fonksiyonu uygulanmıştır.</li>
+            <li><strong>Uzamsal Dönüşüm ve Ağırlık Merkezi (COG):</strong> İkili maske üzerinden sıfırıncı ve birinci derece momentler (m00, m10, m01) hesaplanarak ağırlık merkezi (Center of Gravity) tespit edilmiştir. Optik merkez ofsetleri ve uzaklık ölçekleme katsayısı (Scale = Dist / 365) kullanılarak piksel değerleri fiziksel çalışma uzayına (X<sub>cm</sub>, Y<sub>cm</sub>) aktarılmıştır.</li>
+            <li><strong>2-DOF Analitik Ters Kinematik:</strong> Mekanik taretin sabit bağlantı uzunlukları (l<sub>1</sub> = 3 cm, d<sub>1</sub> = 4 cm) baz alınarak hedef koordinatlar trigonometrik bağıntılarla açısal servo komutlarına dönüştürülür:</li>
+        </ul>
+
+        <div class="formula-box text-sm space-y-2">
+            <div>&theta;<sub>1</sub> = atan2(P<sub>y</sub>, P<sub>x</sub>)</div>
+            <div>P<sub>x'</sub> = P<sub>x</sub> - l<sub>1</sub> &middot; cos(&theta;<sub>1</sub>), &nbsp;&nbsp;&nbsp; P<sub>z'</sub> = P<sub>z</sub> + d<sub>1</sub></div>
+            <div>&theta;<sub>2</sub> = &pi; - atan2(P<sub>x'</sub>, P<sub>z'</sub>)</div>
+        </div>
+
+        <ul>
+            <li><strong>Donanım Sınırlandırması (Clamping):</strong> Hesaplanan radyan cinsinden değerler dereceye dönüştürüldükten sonra servo motorların sınır aşımına uğramasını önlemek adına [0&deg;, 180&deg;] aralığına kenetlenmiştir.</li>
+            <li><strong>Gömülü Haberleşme ve Güvenli Atış Döngüsü:</strong> Seri port (UART, 9600 Baud) üzerinden Arduino'ya 3 baytlık kontrol paketi iletilir: <code>[Th1, Th2, LaserState]</code>. Donanımsal zamanlayıcılar (Timers) ile yönetilen durum akışı sayesinde sistem hedefe kilitlenir, 2 saniyelik kontrollü lazer darbesi tetikler ve diyot ömrünü korumak için lazeri otomatik söndürür.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Key Results</h3>
+        <ul>
+            <li>Emgu CV ve optimize edilmiş görüntü işleme döngüsü sayesinde gerçek zamanlı hedef tespiti ve COG hesabı sıfır kare atlaması ile yürütülmüştür.</li>
+            <li>Analitik ters kinematik motoru sayesinde hedefin çalışma uzayındaki konumu doğrudan Pan-Tilt açılarına aktarılmış ve hedef üzerinde milimetrik fiziksel kilitleme sağlanmıştır.</li>
+            <li>C# ve Arduino arasındaki çift taraflı haberleşme hattında tampon temizleme mantığı uygulanarak seri port gecikmesi ve veri kayıpları engellenmiştir.</li>
+        </ul>
+
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+            <a href="https://github.com/silaekincioglu/Autonomous-Laser-Turret" target="_blank" class="btn">View on GitHub</a>
+        </div>
+    </div>
+    
+    <footer class="py-6 text-center text-sm text-gray-500">
+        &copy; 2026 Sıla Ekincioğlu.
+    </footer>
+</body>
+</html>

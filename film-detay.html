@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study | Movie Popularity Prediction & Recommendation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; }
+        .btn { background-color: #238636; color: white; padding: 8px 16px; border-radius: 6px; font-weight: 500; font-size: 14px; text-decoration: none; display: inline-block; }
+        .btn:hover { background-color: #2ea043; }
+        h1, h2, h3 { color: #ffffff; }
+        .content-box p { margin-bottom: 1rem; line-height: 1.6; color: #c9d1d9; }
+        .content-box ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #c9d1d9; }
+        .content-box li { margin-bottom: 0.5rem; }
+        .content-box strong { color: #58a6ff; }
+    </style>
+</head>
+<body class="antialiased max-w-3xl mx-auto p-6">
+    
+    <div class="mb-6 mt-4">
+        <a href="index.html" class="text-blue-400 hover:underline">← Back to Portfolio</a>
+    </div>
+
+    <div class="card p-8 content-box">
+        <h1 class="text-3xl font-bold mb-6 border-b border-gray-700 pb-4">Movie Popularity Prediction & Recommendation via GA-V</h1>
+        
+        <h3 class="text-xl font-semibold mb-3 mt-6">Executive Summary</h3>
+        <p>Film endüstrisinde, yapımların gişe ve eleştirel başarısını yalnızca yayın öncesi metadatalar (bütçe, süre, popülerlik) üzerinden tahmin etmek oldukça zorlu bir problemdir. Literatürdeki birçok çalışma, "Veri Sızıntısı (Data Leakage)" gibi metodolojik hatalar nedeniyle gerçekçi olmayan yüksek doğruluk oranları raporlamaktadır. Bu proje, <strong>Genetik Algoritma Destekli Adaptif Ağırlıklı Topluluk (GA-V)</strong> modeli geliştirerek tamamen dürüst, çapraz doğrulamalı ve sektöre yönelik pratik bir tahmin ve tavsiye sistemi (Recommender System) altyapısı sunmaktadır.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">The Challenge</h3>
+        <p>Bütçe veya çalışma süresi gibi bağımsız değişkenlerin film kalitesi üzerindeki doğrusal korelasyonu (örn. bütçe için sadece 0.084) yok denecek kadar azdır. Bu zayıf sinyal ortamında çok sınıflı tahminlemenin başarısız olması üzerine strateji İkili Sınıflandırmaya (High-Quality vs. Low-Quality) çekilmiş ve sıradan yapay sinir ağları yerine evrimsel bir optimizasyon sürecine geçilmiştir.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Methodology</h3>
+        <p>Proje üç ana mühendislik sütunu üzerine inşa edilmiştir:</p>
+        <ul>
+            <li><strong>GA-V Sınıflandırıcı:</strong> Random Forest, AdaBoost, Logistic Regression, Naive Bayes ve SVM'den oluşan 5 temel algoritma kullanılmıştır. Genetik Algoritma, 50 jenerasyon boyunca çalışarak modellere sınıf bazlı (class-specific) ağırlıklar atamıştır (Örn: Modelin problemin doğrusal olmadığını tespit edip Logistic Regression'ı elemesi gibi).</li>
+            <li><strong>İçerik Tabanlı Tavsiye Motoru:</strong> Filmlerin genel özetleri ve tür etiketleri NLP teknikleriyle (TF-IDF) vektörize edilmiş ve Cosine Distance (Kosinüs Mesafesi) kullanılarak anlamsal benzer film önerileri sunan bir modül geliştirilmiştir.</li>
+            <li><strong>Demografik Hedef Kitle Eşleştirme:</strong> GA-V modelinden çıkan nesnel kalite olasılığı (%60) ile tür bazlı demografik yatkınlık skorları (%40) birleştirilmiş; filmler yaş gruplarındaki (Junior, Teenage, vs.) izleyici kitleleriyle eşleştirilerek pazarlama içgörüsü üretilmiştir.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Data Hygiene</h3>
+        <p>Literatürdeki en büyük hata olan veri sızıntısını önlemek için <strong>Katmanlı 10-Katlamalı Çapraz Doğrulama (Stratified 10-Fold CV)</strong> uygulanmıştır. Veri ölçeklendirme işlemleri tüm veri setine değil, yalnızca o anki eğitim (K-1) katmanlarına uygulanarak modelin test verisini "ezberlemesi" tamamen engellenmiştir.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Key Results & Impact</h3>
+        <ul>
+            <li><strong>Genel Doğruluk:</strong> Model <strong>%64.81'lik</strong> tamamen gerçekçi ve sağlam bir doğruluk oranına ulaşarak, sadece sayısal verilerle elde edilebilecek maksimum performans tavanını belirlemiştir.</li>
+            <li><strong>Flop Tespiti:</strong> "Düşük Kaliteli" filmleri yakalamada %78 gibi çok yüksek bir Duyarlılık (Recall) oranı elde edilmiş, stüdyolar için gişe riski taşıyan filmleri önceden tespit etmede güvenilir olduğu kanıtlanmıştır.</li>
+            <li><strong>İş Etkisi:</strong> "Daha fazla bütçe = daha iyi film" mitini istatistiksel olarak çürüten bu altyapı, dijital yayın platformlarına kullanıcının seveceği filmi önerme ve o filmin gişe potansiyelini öngörme yeteneği kazandırmaktadır.</li>
+        </ul>
+
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+            <a href="https://github.com/silaekincioglu/Recommender-Systems-Movie-Popularity-Prediction-GAV" target="_blank" class="btn">View on GitHub</a>
+        </div>
+    </div>
+    
+    <footer class="py-6 text-center text-sm text-gray-500">
+        &copy; 2026 Sıla Ekincioğlu.
+    </footer>
+</body>
+</html>

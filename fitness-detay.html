@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study | Fitness With AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; }
+        .btn { background-color: #238636; color: white; padding: 8px 16px; border-radius: 6px; font-weight: 500; font-size: 14px; text-decoration: none; display: inline-block; }
+        .btn:hover { background-color: #2ea043; }
+        h1, h2, h3 { color: #ffffff; }
+        .content-box p { margin-bottom: 1rem; line-height: 1.6; color: #c9d1d9; }
+        .content-box ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #c9d1d9; }
+        .content-box li { margin-bottom: 0.5rem; }
+        .content-box strong { color: #58a6ff; }
+    </style>
+</head>
+<body class="antialiased max-w-3xl mx-auto p-6">
+    
+    <div class="mb-6 mt-4">
+        <a href="index.html" class="text-blue-400 hover:underline">← Back to Portfolio</a>
+    </div>
+
+    <div class="card p-8 content-box">
+        <h1 class="text-3xl font-bold mb-6 border-b border-gray-700 pb-4">Fitness With AI: Interactive Exercise Assistant & Posture Analysis</h1>
+        
+        <h3 class="text-xl font-semibold mb-3 mt-6">Executive Summary</h3>
+        <p>Ev ortamında denetimsiz yapılan fiziksel egzersizler, yanlış form ve duruş bozuklukları nedeniyle ciddi kas-iskelet sistemi sakatlanmalarına yol açmaktadır. Bu proje, harici bir donanım veya derinlik kamerasına (RGB-D) ihtiyaç duymadan, standart bir web kamerası üzerinden çalışan web tabanlı, yapay zeka destekli interaktif bir egzersiz asistanıdır. Sistem, gerçek zamanlı bilgisayarlı görü (Computer Vision) algoritmalarını biyomekanik açı analizleri, durum makineleri ve spor bilimi periyodizasyon prensipleriyle birleştirerek kullanıcıya kapalı döngü (closed-loop) anlık koçluk sağlar.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">The Challenge</h3>
+        <p>Geleneksel egzersiz uygulamaları ve video içerikleri kullanıcıya hareketin "nasıl yapılması gerektiğini" gösterir ancak hareketin "nasıl uygulandığını" denetleyemez. İnsan Vücut Duruşu Kestirimi (Human Pose Estimation) modellerinin çoğu ise yüksek GPU gücü gerektirdiğinden son kullanıcı tarayıcılarında gecikmesiz çalışmakta yetersiz kalır. Projede hedeflenen temel amaç; düşük donanımlı cihazlarda dahi istemci tarafında 30-60 FPS hızında çalışan, gecikmesiz form denetimi yapan ve kullanıcının mahremiyetini mutlak surette koruyan bir sistem geliştirmektir.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Methodology & System Architecture</h3>
+        <p>Sistem, İstemci (React.js), Yapay Zeka Motoru (MediaPipe) ve Bulut Veri Tabanı (Firebase) olmak üzere üç katmanlı bir mimari üzerinde inşa edilmiştir:</p>
+        <ul>
+            <li><strong>Edge AI & BlazePose Mimarisi:</strong> Google MediaPipe kütüphanesi ve BlazePose topolojisi kullanılarak kullanıcının vücudundaki 33 anatomik eklem noktası (x, y, z koordinatları) doğrudan web tarayıcısı üzerinde (WebAssembly/WebGL) çıkarılmıştır.</li>
+            <li><strong>Biyomekanik 3D Açı Hesaplama Motoru:</strong> Eklem noktaları arasındaki ilişkiler 3 boyutlu vektörel nokta çarpım (Dot Product) ve Kosinüs Teoremi kullanılarak hesaplanmıştır. Kayan noktalı sayı hatalarını önlemek için kosinüs değerleri [-1.0, 1.0] aralığına kenetlenmiş (clamping), omurga güvenliği için Math.atan2 fonksiyonuyla sırt eğimi hesaplanarak 55 derecelik kritik sınır denetlenmiştir.</li>
+            <li><strong>Dinamik Yön Tespiti (Visibility Router Pattern):</strong> Kullanıcının kameraya hangi açıyla durduğunu belirlemek amacıyla sağ ve sol eklemlerin güvenilirlik skorları (visibility) toplanarak baskın taraf otomatik seçilmiş ve ilgili biyomekanik fonksiyona yönlendirilmiştir.</li>
+            <li><strong>Hileli Tekrarı Engelleyen Durum Makinesi (State Machine):</strong> Egzersizin eksantrik ve konsantrik evreleri (örn. squat için diz açısının 90 derecenin altına inmesi ve ardından 165 derece üzerine uzanması) deterministik bir sonlu durum makinesi (FSM) ile modellenmiştir. Tam hareket aralığı (Range of Motion - ROM) tamamlanmadan yapılan yarım tekrarlar kesin olarak engellenmiştir.</li>
+            <li><strong>Akıllı Sesli Geri Bildirim ve Cooldown Algoritması:</strong> Form hatalarında sürekli tekrar eden sesli ikazların yarattığı bilişsel yorgunluğu önlemek için hata mesajlarına 30 saniyelik zaman damgalı susturma (cooldown) mekanizması uygulanmış, görsel iskelet renk kodlaması ise eşzamanlı olarak kırmızıya dönüştürülmüştür.</li>
+            <li><strong>React 60 FPS Bellek ve Render Optimizasyonu:</strong> Saniyede 60 kare hızında akan kamera koordinatlarının React Virtual DOM üzerinde yeniden çizim maliyeti yaratmasını önlemek amacıyla eklem verileri ve durum fazları useRef kancalarıyla bellekte tutulmuştur.</li>
+            <li><strong>Progressive Overload Antrenman Üretimi:</strong> Kullanıcının başlangıç değerlendirme (onboarding) verilerine göre 8 haftalık periyotlar halinde Adaptasyon, Hacim, Şiddet ve Zirve evrelerini hesaplayan algoritmik bir program motoru entegre edilmiştir.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Data Privacy & Ethics</h3>
+        <p>Sistem "Tasarımda Gizlilik (Privacy by Design)" ilkesini benimsemiştir. Kamera görüntüleri hiçbir şekilde uzak bir sunucuya veya bulut ortamına iletilmez; tüm piksel işleme operasyonları doğrudan kullanıcının yerel tarayıcı belleğinde tamamlanır ve silinir. Firebase Firestore veritabanına yalnızca şifrelenmiş metin tabanlı antrenman metrikleri ve skorlar kaydedilerek GDPR ve KVKK standartlarına tam uyum sağlanmıştır.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Key Results</h3>
+        <ul>
+            <li>Standart aydınlatma koşullarında MediaPipe BlazePose modeli ile eklem noktası tespitinde %95 doğruluk oranı elde edilmiştir.</li>
+            <li>50 tekrarlık test senaryolarında, geliştirilen durum makinesinin geçersiz ve hileli tekrarları %100 doğrulukla ayıkladığı doğrulanmıştır.</li>
+            <li>useRef mimarisi sayesinde React arayüzünde sıfır kare atlaması ile stabil 60 FPS performansına ulaşılmıştır.</li>
+        </ul>
+
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+            <a href="https://github.com/silaekincioglu/Fitness-With-AI" target="_blank" class="btn">View on GitHub</a>
+        </div>
+    </div>
+    
+    <footer class="py-6 text-center text-sm text-gray-500">
+        &copy; 2026 Sıla Ekincioğlu.
+    </footer>
+</body>
+</html>

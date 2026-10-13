@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sıla Ekincioğlu | Software Engineer & AI Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; transition: border-color 0.2s; }
+        .card:hover { border-color: #8b949e; }
+        .btn { background-color: #238636; color: white; padding: 8px 16px; border-radius: 6px; font-weight: 500; font-size: 14px; text-decoration: none; display: inline-block; text-align: center; transition: background 0.2s;}
+        .btn:hover { background-color: #2ea043; }
+        .tag { font-size: 11px; padding: 2px 8px; background: #21262d; border: 1px solid #30363d; border-radius: 12px; color: #8b949e; }
+        .metric-box { background: #0d1117; border-left: 3px solid #238636; padding: 10px 12px; margin-bottom: 16px; border-radius: 0 4px 4px 0; font-size: 13px; color: #7ee787; }
+        .metric-highlight { font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased max-w-4xl mx-auto p-6">
+    <header class="py-12 border-b border-gray-700">
+        <h1 class="text-4xl font-bold text-white mb-2">Sıla Ekincioğlu</h1>
+        <h2 class="text-xl text-gray-400">Computer Engineering | AI & Python Developer</h2>
+        <div class="mt-4 flex gap-4">
+            <a href="mailto:silaekincioglu12@gmail.com" class="text-blue-400 hover:underline">Email</a>
+            <a href="https://github.com/silaekincioglu" class="text-blue-400 hover:underline" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/sila-ekincioglu-" class="text-blue-400 hover:underline" target="_blank">LinkedIn</a>
+        </div>
+    </header>
+
+    <main class="py-8 space-y-12">
+        <section>
+            <h3 class="text-2xl font-semibold text-white mb-4">About Me</h3>
+            <p class="text-gray-300 leading-relaxed">
+                Üsküdar Üniversitesi Bilgisayar Mühendisliği bölümünden (GNO: 3.76) mezun oldum. Yapay Zeka, Makine Öğrenmesi, Bilgisayarlı Görü ve Veri Güvenliği alanlarına tutkuyla bağlıyım. Python, C++ ve ileri düzey algoritmalar konusundaki teorik bilgimi; IT operasyonları, dijital dönüşüm ve yazılım geliştirme stajlarımdan edindiğim pratik tecrübelerle birleştirerek, yüksek etkili ve gerçek dünya problemlerini çözen sistemler geliştiriyorum.
+            </p>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-semibold text-white mb-4">Skills & Expertise</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">Python</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">C++</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">PyTorch & Deep Learning</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">Computer Vision & OpenCV</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">Scikit-Learn & Recommender Systems</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">Data Structures & Algorithms</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">SQL & Database Management</span>
+                <span class="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm">Data Security</span>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-semibold text-white mb-4">Featured Projects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Proje 1 -->
+                <div class="card p-6 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold text-blue-400 mb-2">Anomaly-Aware Brain Tumor Segmentation</h4>
+                        <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+                            BraTS 2021 veri setinde 3 boyutlu tıbbi görüntü segmentasyonu için PyTorch, Attention Gates ve Symmetry Refinement Networks (SRN) kullanan hibrit derin öğrenme mimarisi.
+                        </p>
+                        
+                        <div class="metric-box">
+                            Tam Tümör (Whole Tumor) tespitinde <span class="metric-highlight">0.9800 Mean Dice Skoru</span> elde edildi.
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">NIfTI</span>
+                            <span class="tag">Medical Imaging</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <a href="tumor-detay.html" class="btn">View Case Study</a>
+                        <a href="https://github.com/silaekincioglu/Anomaly-Aware-Brain-Tumor-Segmentation" class="btn" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                
+                <!-- Proje 2 -->
+                <div class="card p-6 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold text-blue-400 mb-2">Movie Popularity Prediction & Recommendation</h4>
+                        <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+                            Genetik Algoritma Optimize Edilmiş Oylama Sınıflandırıcısı (GA-V) ile TF-IDF kosinüs benzerliği tabanlı içerik öneri motorunu birleştiren makine öğrenmesi sistemi.
+                        </p>
+                        
+                        <div class="metric-box">
+                            Klasik yöntemleri geride bırakan, sıfır veri sızıntılı <span class="metric-highlight">%64.81 doğruluk</span> ve robust bir tavsiye motoru.
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tag">Scikit-Learn</span>
+                            <span class="tag">Ensemble Learning</span>
+                            <span class="tag">NLP</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <a href="film-detay.html" class="btn">View Case Study</a>
+                        <a href="https://github.com/silaekincioglu/Recommender-Systems-Movie-Popularity-Prediction-GAV" class="btn" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <!-- Proje 3: Fitness With AI -->
+<div class="card p-6 flex flex-col justify-between">
+    <div>
+        <h4 class="text-lg font-bold text-blue-400 mb-2">Fitness With AI</h4>
+        <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+            Google MediaPipe (BlazePose) ve React.js kullanarak tarayıcı üzerinde gerçek zamanlı 33-nokta iskelet analizi, biyomekanik açı hesaplaması ve duruş düzeltmesi yapan interaktif egzersiz asistanı.
+        </p>
+        
+        <div class="metric-box">
+            Edge AI altyapısıyla sıfır veri sızıntılı yerel görüntü işleme ve State Machine ile kusursuz hareket aralığı (ROM) denetimi.
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+            <span class="tag">Computer Vision</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">React.js</span>
+            <span class="tag">Firebase</span>
+        </div>
+    </div>
+    <div class="flex flex-col gap-3">
+        <a href="fitness-detay.html" class="btn">View Case Study</a>
+        <a href="https://github.com/silaekincioglu/Fitness-With-AI" target="_blank" class="btn">View on GitHub</a>
+    </div>
+</div>
+<!-- Proje 4: Autonomous Laser Turret -->
+<div class="card p-6 flex flex-col justify-between">
+    <div>
+        <h4 class="text-lg font-bold text-blue-400 mb-2">Autonomous Vision-Based Laser Turret</h4>
+        <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+            C# Windows Forms, Emgu CV (OpenCV) ve Arduino kullanarak nesneleri gerçek zamanlı segmente eden, ağırlık merkezini çıkaran ve 2-eksenli analitik ters kinematik ile fiziksel lazer kilitlemesi yapan otonom robotik hedefleme sistemi.
+        </p>
+        
+        <div class="metric-box">
+            Piksel-metrik uzamsal koordinat dönüşümü, 2-DOF ters kinematik açı çözümü ve 9600 baud UART paket protokolü.
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+            <span class="tag">C# / .NET</span>
+            <span class="tag">Emgu CV (OpenCV)</span>
+            <span class="tag">Inverse Kinematics</span>
+            <span class="tag">Arduino</span>
+            <span class="tag">Embedded Systems</span>
+        </div>
+    </div>
+    <div class="flex flex-col gap-3">
+        <a href="lazer-detay.html" class="btn">View Case Study</a>
+        <a href="https://github.com/silaekincioglu/Autonomous-Laser-Turret" class="btn" target="_blank">View on GitHub</a>
+    </div>
+</div>
+            </div>
+        </section>
+    </main>
+    <footer class="py-6 border-t border-gray-700 text-center text-sm text-gray-500">
+        &copy; 2026 Sıla Ekincioğlu. Built with GitHub Pages.
+    </footer>
+</body>
+</html>

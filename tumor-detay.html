@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study | Anomaly-Aware Brain Tumor Segmentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; }
+        .btn { background-color: #238636; color: white; padding: 8px 16px; border-radius: 6px; font-weight: 500; font-size: 14px; text-decoration: none; display: inline-block; }
+        .btn:hover { background-color: #2ea043; }
+        h1, h2, h3 { color: #ffffff; }
+        .content-box p { margin-bottom: 1rem; line-height: 1.6; color: #c9d1d9; }
+        .content-box ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #c9d1d9; }
+        .content-box li { margin-bottom: 0.5rem; }
+        .content-box strong { color: #58a6ff; }
+    </style>
+</head>
+<body class="antialiased max-w-3xl mx-auto p-6">
+    
+    <div class="mb-6 mt-4">
+        <a href="index.html" class="text-blue-400 hover:underline">← Back to Portfolio</a>
+    </div>
+
+    <div class="card p-8 content-box">
+        <h1 class="text-3xl font-bold mb-6 border-b border-gray-700 pb-4">Anomaly-Aware Brain Tumor Segmentation (BraTS 2021)</h1>
+        
+        <h3 class="text-xl font-semibold mb-3 mt-6">Executive Summary</h3>
+        <p>Tıbbi görüntüleme (Medical Imaging) alanında, özellikle çok modlu MRI taramalarından beyin tümörlerinin hassas bir şekilde segmente edilmesi, bilgisayar destekli tanı (CAD) sistemleri için kritik bir role sahiptir. Bu proje, BraTS 2021 veri seti üzerinde sınıf dengesizliği (class imbalance) ve sınır belirsizliği gibi kronik problemleri çözmek amacıyla, standart U-Net yaklaşımlarının ötesine geçen <strong>hibrit, anomali farkındalıklı (anomaly-aware) bir derin öğrenme mimarisi</strong> sunmaktadır.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">The Challenge</h3>
+        <p>Beyin tümörü segmentasyonundaki en büyük zorluk, tümör alt bölgelerinin (nekroz, ödem, kontrastlanan tümör) düzensiz yapıları ve beyin dokusuyla olan belirsiz sınırlarıdır. Standart konvolüsyonel sinir ağları (CNN'ler), sağlıklı beyin dokusu ile tümör arasındaki şiddetli sınıf dengesizliğinde genellikle başarısız olur. Bu proje, modeli doğrudan anormalliklere (tümörlere) odaklanmaya zorlayan yapısal bir çözüm bulmayı hedeflemiştir.</p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Methodology</h3>
+        <p>Klasik mimariler yerine projede, yerel doku özelliklerini ve evrensel bağlamı aynı anda öğrenebilen <strong>Hybrid SEGNET Backbone</strong> ve <strong>LightTransformer</strong> modülleri kullanılmıştır. Mimarinin en güçlü yenilikleri şunlardır:</p>
+        <ul>
+            <li><strong>Symmetry Refinement Network (SRN):</strong> İnsan beyninin doğal anatomik simetrisinden faydalanılarak, hastanın MRI görüntülerinden "sahte-sağlıklı" (pseudo-healthy) bir referans üretilmiştir. Model, sağ ve sol hemisferler arasındaki asimetriyi bir ipucu olarak kullanarak anormallikleri çok daha hızlı tespit eder.</li>
+            <li><strong>Attention Gates (Dikkat Mekanizmaları):</strong> Modelin, arka plandaki gereksiz sağlıklı dokuları görmezden gelerek, yalnızca klinik açıdan kritik olan tümör çekirdeği (Tumor Core) ve ödem (Edema) bölgelerine ağırlık vermesi sağlanmıştır.</li>
+            <li><strong>Özel Kayıp Fonksiyonu (DiceCELoss):</strong> Tıbbi segmentasyonda çok kritik olan piksel doğruluğunu artırmak için Cross-Entropy ve Dice Loss fonksiyonları harmanlanmıştır.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Key Results</h3>
+        <p>Geliştirilen bu anomali farkındalıklı mimari, geleneksel yöntemleri ve popüler IntroVAE tabanlı modelleri özellikle <strong>Tam Tümör (Whole Tumor)</strong> tespitinde geride bırakmıştır.</p>
+        <ul>
+            <li><strong>Whole Tumor (WT) Mean Dice Skoru:</strong> 0.9800 <em>(Model, tümörün genel sınırlarını %98 gibi muazzam bir doğrulukla yakalamıştır).</em></li>
+            <li><strong>Tumor Core (TC) Mean Dice Skoru:</strong> 0.8287</li>
+            <li><strong>Enhancing Tumor (ET) Mean Dice Skoru:</strong> 0.8102</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Business & Clinical Impact</h3>
+        <p>Bu sistem, radyologların manuel tümör işaretleme sürelerini dakikalardan saniyelere indirme potansiyeline sahiptir. Proje, sadece bir yapay zeka modeli geliştirmeyi değil; dengesiz sınıflarla başa çıkma ve karmaşık 3D medikal yapıları performanstan ödün vermeden optimize etme mühendisliğini kanıtlamaktadır.</p>
+
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+            <a href="https://github.com/silaekincioglu/Anomaly-Aware-Brain-Tumor-Segmentation" target="_blank" class="btn">View on GitHub</a>
+        </div>
+    </div>
+    
+    <footer class="py-6 text-center text-sm text-gray-500">
+        &copy; 2026 Sıla Ekincioğlu.
+    </footer>
+</body>
+</html>
